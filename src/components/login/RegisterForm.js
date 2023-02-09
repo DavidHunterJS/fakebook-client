@@ -1,22 +1,63 @@
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
-const userInfos = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  bYear: "",
-  bMonth: "",
-  bDay: "",
-  gender: "",
-};
+import * as Yup from "yup";
 export default function RegisterForm() {
+  const userInfos = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    bYear: new Date().getFullYear(),
+    bMonth: new Date().getMonth() + 1,
+    bDay: new Date().getDate(),
+    gender: "",
+  };
   const [user, setUser] = useState(userInfos);
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    bYear,
+    bMonth,
+    bDay,
+    gender,
+  } = user;
+  const yearTemp = new Date().getFullYear();
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+  const years = Array.from(new Array(108), (val, index) => yearTemp - index);
+  const months = Array.from(new Array(12), (val, index) => 1 + index);
+  const getDays = () => {
+    return new Date(bYear, bMonth, 0).getDate();
+  };
+  const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
+  const registerValidation = Yup.object({
+    first_name: Yup.string()
+      .required("What's your first name?")
+      .min(2, "Fist name must be between 2 and 16 characters.")
+      .max(16, "Fist name must be between 2 and 16 characters.")
+      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+    last_name: Yup.string()
+      .required("What's your last name?")
+      .min(2, "Last name must be between 2 and 16 characters.")
+      .max(16, "Last name must be between 2 and 16 characters.")
+      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+    email: Yup.string()
+      .required(
+        "You'll need this when you log in and if you ever need to reset you password."
+      )
+      .email("Enter valid email."),
+    password: Yup.string()
+      .required(
+        "Enter a combination of at least six numbers, letters and punctuation marks (such as ! and &)."
+      )
+      .min(6, "Password must be at least 6 characters")
+      .max(13, "Password can't be more than 13 characters"),
+  });
   return (
     <div className="blur">
       <div className="register">
@@ -25,7 +66,20 @@ export default function RegisterForm() {
           <span>Sign Up</span>
           <span>it's quick and easy</span>
         </div>
-        <Formik>
+        <Formik
+          enableReinitialize
+          initialValues={{
+            first_name,
+            last_name,
+            email,
+            password,
+            bYear,
+            bMonth,
+            bDay,
+            gender,
+          }}
+          validationSchema={registerValidation}
+        >
           {(formik) => (
             <Form className="register_form">
               <div className="reg_line">
@@ -33,7 +87,7 @@ export default function RegisterForm() {
                   type="text"
                   placeholder="First name"
                   name="first_name"
-                  onChange={handleRegisterChange}
+                  // onChange={handleRegisterChange}
                 />
                 <RegisterInput
                   type="text"
@@ -63,14 +117,38 @@ export default function RegisterForm() {
                   Date of birth <i className="info_icon"></i>
                 </div>
                 <div className="reg_grid">
-                  <select name="bDay">
-                    <option>15</option>
+                  <select
+                    name="bDay"
+                    value={bDay}
+                    onChange={handleRegisterChange}
+                  >
+                    {days.map((day, i) => (
+                      <option value={day} key={i}>
+                        {day}
+                      </option>
+                    ))}
                   </select>
-                  <select name="bMonth">
-                    <option>15</option>
+                  <select
+                    name="bMonth"
+                    value={bMonth}
+                    onChange={handleRegisterChange}
+                  >
+                    {months.map((month, i) => (
+                      <option value={month} key={i}>
+                        {month}
+                      </option>
+                    ))}
                   </select>
-                  <select name="bYear">
-                    <option>15</option>
+                  <select
+                    name="bYear"
+                    value={bYear}
+                    onChange={handleRegisterChange}
+                  >
+                    {years.map((year, i) => (
+                      <option value={year} key={i}>
+                        {year}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
