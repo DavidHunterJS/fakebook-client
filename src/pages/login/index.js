@@ -1,8 +1,7 @@
 import "./style.css";
-import { Link } from "react-router-dom";
 import LoginForm from "../../components/login/LoginForm";
-import RegisterForm from "../../components/login/RegisterForm";
 import Footer from "../../components/login/Footer";
+import RegisterForm from "../../components/login/RegisterForm";
 
 export default function Login() {
   return (

@@ -1,5 +1,5 @@
 import "./style.css";
-import { ErrorMessage, useField } from "formik";
+import { useField, ErrorMessage } from "formik";
 import { useMediaQuery } from "react-responsive";
 export default function LoginInput({ placeholder, bottom, ...props }) {
   const [field, meta] = useField(props);
@@ -13,7 +13,7 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
           className={
             desktopView ? "input_error input_error_desktop" : "input_error"
           }
-          style={{ transform: "translateY(4px)" }}
+          style={{ transform: "translateY(3px)" }}
         >
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
@@ -36,7 +36,7 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
           className={
             desktopView ? "input_error input_error_desktop" : "input_error"
           }
-          style={{ transform: "translateY(1px)" }}
+          style={{ transform: "translateY(2px)" }}
         >
           {meta.touched && meta.error && <ErrorMessage name={field.name} />}
           {meta.touched && meta.error && (
@@ -48,6 +48,7 @@ export default function LoginInput({ placeholder, bottom, ...props }) {
           )}
         </div>
       )}
+
       {meta.touched && meta.error && (
         <i
           className="error_icon"

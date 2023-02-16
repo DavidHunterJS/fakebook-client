@@ -1,5 +1,4 @@
-/*--- Login ----*/
-
+/*-------login-----*/
 .login_wrapper {
     background: var(--bg-secondary);
 }
@@ -72,11 +71,10 @@
 .sign_extra {
     font-size: 15px;
 }
-/*-----login-----*/
 
+/*-------login-----*/
 
-/*-----register-----*/
-
+/*-----Register---------*/
 .register {
     position: absolute;
     top: 50%;
@@ -128,7 +126,7 @@
     padding: 7px 0;
     display: flex;
     flex-direction: column;
-    gap: 10px; 
+    gap: 10px;
 }
 
 .reg_col {
@@ -252,12 +250,42 @@
 
 /*----Footer------*/
 
+/*----dob and gender errors-----*/
+.reg_grid .input_error {
+    width: 300px;
+    position: absolute;
+    top: 70px;
+}
+
+.input_error_select_large {
+    left: -97%;
+    top: 15px !important;
+}
+
+/*----dob and gender errors-----*/
+
 /*----Media queries--------------*/
 @media (min-width: 539px) {
     .login_footer_wrap {
         max-width: 520px;
-    } 
+    }
 
+    .register {
+        width: 400px;
+    }
+
+    .reg_line {
+        flex-direction: row;
+    }
+
+    .reg_grid select,
+    .reg_grid label {
+        width: 110px;
+    }
+
+    .reg_grid .input_error {
+        width: 350px;
+    }
 }
 
 @media (min-width: 650px) {
@@ -297,9 +325,10 @@
     .input_wrap {
         width: 360px !important;
     }
-    
+
     .login_footer_wrap {
         max-width: 900px;
     }
 }
-/*----Media queries-----*/
+
+/*----Media queries--------------*/
